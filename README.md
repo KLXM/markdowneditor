@@ -6,21 +6,21 @@ Kann als Drop-in-Ersatz für das **markitup**-Addon verwendet werden (kompatible
 ![REDAXO](https://img.shields.io/badge/REDAXO-%3E%3D5.13-red)
 ![PHP](https://img.shields.io/badge/PHP-%3E%3D8.1-blue)
 
-## Features
+## Features / realisiert ✅ und noch nicht getestet ❓ 
 
 - **EasyMDE** als Basis – bewährt, leichtgewichtig, CodeMirror-basiert
-- **markitup-kompatibel** – gleiche Link-Formate, kann markitup direkt ersetzen
-- **Plugin-System** – andere Addons können Toolbar-Buttons und Verarbeitung erweitern
-- **Medienpool-Integration** – Bilder direkt aus dem REDAXO-Medienpool einfügen
-- **Struktur-Links** – Artikel aus der REDAXO-Struktur verlinken
-- **YForm-Datensätze** – YForm-Datensätze als Links einfügen
-- **Drag & Drop Upload** – Bilder per Drag & Drop in den Medienpool hochladen
-- **Profilsystem** – Verschiedene Toolbar-Konfigurationen für unterschiedliche Einsatzzwecke
-- **Dark Mode** – Vollständige Unterstützung für REDAXO Light, Dark und Auto Theme
-- **MBlock-kompatibel** – Funktioniert in MBlock-Formularen
-- **MForm Repeater-kompatibel** – Funktioniert in MForm-Repeater-Feldern
-- **Live-Vorschau** – Side-by-Side und Fullscreen Preview
-- **Tastaturkürzel** – `Ctrl+Shift+M` für Medienpool, `Ctrl+Shift+L` für Linkmap
+- **markitup-kompatibel** – gleiche Link-Formate, kann markitup direkt ersetzen ✅
+- **Plugin-System** – andere Addons können Toolbar-Buttons und Verarbeitung erweitern ✅
+- **Medienpool-Integration** – Bilder direkt aus dem REDAXO-Medienpool einfügen ✅
+- **Struktur-Links** – Artikel aus der REDAXO-Struktur verlinken ✅
+- **YForm-Datensätze** – YForm-Datensätze als Links einfügen ❓
+- **Drag & Drop Upload** – Bilder per Drag & Drop in den Medienpool hochladen ✅
+- **Profilsystem** – Verschiedene Toolbar-Konfigurationen für unterschiedliche Einsatzzwecke ✅
+- **Dark Mode** – Vollständige Unterstützung für REDAXO Light, Dark und Auto Theme ✅
+- **MBlock-kompatibel** – Funktioniert in MBlock-Formularen ❓
+- **MForm Repeater-kompatibel** – Funktioniert in MForm-Repeater-Feldern ❓
+- **Live-Vorschau** – Side-by-Side und Fullscreen Preview  ✅
+- **Tastaturkürzel** – `Ctrl+Shift+M` für Medienpool, `Ctrl+Shift+L` für Linkmap  ✅
 
 ## Installation
 
