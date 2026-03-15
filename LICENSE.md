@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) Friends Of REDAXO
+Copyright (c) KLXM Crossmedia GmbH
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
