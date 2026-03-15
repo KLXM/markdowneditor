@@ -1,0 +1,65 @@
+markdowneditor_title = Markdown Editor
+markdowneditor_profiles = Profile
+markdowneditor_settings = Einstellungen
+markdowneditor_help = Hilfe
+
+markdowneditor_profile_name = Profilname
+markdowneditor_profile_name_notice = Eindeutiger Name (nur Kleinbuchstaben, Zahlen, Unterstrich)
+markdowneditor_profile_name_required = Der Profilname darf nicht leer sein.
+markdowneditor_profile_description = Beschreibung
+markdowneditor_profile_toolbar = Toolbar (JSON)
+markdowneditor_profile_toolbar_notice = JSON-Array der Toolbar-Buttons. Verfügbare Buttons: bold, italic, strikethrough, heading, heading-smaller, heading-bigger, code, quote, unordered-list, ordered-list, clean-block, link, image, table, horizontal-rule, preview, side-by-side, fullscreen, undo, redo, guide. REDAXO-spezifisch: rex-media, rex-link, rex-yform-link. Separator: |
+markdowneditor_profile_add = Profil hinzufügen
+markdowneditor_profile_edit = Profil bearbeiten
+markdowneditor_profile_deleted = Profil wurde gelöscht.
+markdowneditor_profile_cloned = Profil wurde dupliziert.
+
+markdowneditor_min_height = Mindesthöhe
+markdowneditor_max_height = Maximalhöhe
+markdowneditor_status_bar = Statusleiste
+markdowneditor_spell_checker = Rechtschreibprüfung
+markdowneditor_autosave = Automatisches Speichern
+markdowneditor_upload = Bild-Upload
+markdowneditor_media_category = Medien-Kategorie
+markdowneditor_media_category_notice = Standard-Medienkategorie für Uploads (0 = Hauptkategorie)
+markdowneditor_media_type = Media-Manager-Typ
+markdowneditor_media_type_notice = Media-Manager-Typ für Bildvorschau (leer = Original)
+markdowneditor_extra_options = Zusätzliche Optionen (JSON)
+markdowneditor_extra_options_notice = Zusätzliche EasyMDE-Optionen als JSON-Objekt, z.B. {"tabSize": 2}
+markdowneditor_active = Aktiv
+
+markdowneditor_yform_tables = YForm-Tabellen (JSON)
+markdowneditor_yform_tables_notice = JSON-Array der YForm-Tabellen für die Datensatz-Verlinkung. Format: [{"table": "rex_yf_news", "label": "name", "display": "name"}]. label = Spalte als Linktext, display = Spalte zur Anzeige in der Auswahl.
+markdowneditor_yform_not_available = Das YForm-Addon oder der YForm-Manager ist nicht installiert/aktiviert.
+markdowneditor_yform_no_tables = Keine YForm-Tabellen konfiguriert. Bitte im Profil unter "YForm-Tabellen" die gewünschten Tabellen definieren.
+markdowneditor_yform_table_not_found = YForm-Tabelle "{0}" wurde nicht gefunden.
+markdowneditor_yform_select_title = YForm-Datensatz auswählen
+markdowneditor_yform_select_table = Tabelle auswählen
+markdowneditor_yform_select = Übernehmen
+markdowneditor_yform_search = Suchen…
+markdowneditor_yform_entries = Einträge
+markdowneditor_yform_no_results = Keine Einträge gefunden.
+markdowneditor_preview = Vorschau
+markdowneditor_updated = Aktualisiert
+
+markdowneditor_edit = Bearbeiten
+markdowneditor_clone = Duplizieren
+markdowneditor_delete = Löschen
+markdowneditor_delete_confirm = Dieses Profil wirklich löschen?
+
+markdowneditor_default_profile = Standard-Profil
+markdowneditor_default_profile_notice = Profilname, der verwendet wird, wenn kein Profil angegeben ist.
+
+markdowneditor_usage_title = Verwendung
+markdowneditor_usage_output = Ausgabe im Template/Modul
+markdowneditor_usage_mblock = MBlock & MForm Repeater
+markdowneditor_usage_links = REDAXO-Link-Formate
+
+markdowneditor_demo = Demo
+markdowneditor_demo_editors = Editor-Profile testen
+markdowneditor_demo_no_profiles = Keine Profile vorhanden. Bitte zuerst ein Profil anlegen.
+markdowneditor_demo_output = Ausgabe-Vorschau
+markdowneditor_demo_source = Markdown-Quelltext
+markdowneditor_demo_rendered = Gerenderte HTML-Ausgabe
+markdowneditor_demo_quick_usage = Schnellstart – Einbindung
+markdowneditor_demo_usage_intro = So wird der Editor in Modulen und Templates eingebunden:

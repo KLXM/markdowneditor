@@ -1,0 +1,474 @@
+/**
+ * markdowneditor.css – REDAXO MarkdownEditor Theme
+ *
+ * Supports REDAXO Light, Dark, and Auto colour schemes.
+ * Uses CSS custom properties for easy theming.
+ */
+
+/* ================================================================
+ *  CSS Variables – Light Theme (default)
+ * ================================================================ */
+:root {
+    --mde-bg: #fff;
+    --mde-bg-toolbar: #f5f5f5;
+    --mde-bg-preview: #fff;
+    --mde-bg-status: #f5f5f5;
+    --mde-border: #ddd;
+    --mde-border-active: #3498db;
+    --mde-text: #333;
+    --mde-text-secondary: #888;
+    --mde-text-toolbar: #555;
+    --mde-text-toolbar-hover: #333;
+    --mde-icon: #555;
+    --mde-icon-hover: #333;
+    --mde-icon-active: #3498db;
+    --mde-separator: #d9d9d9;
+    --mde-cursor: #333;
+    --mde-selection: rgba(52, 152, 219, 0.15);
+    --mde-gutter: #f7f7f7;
+    --mde-code-bg: #f4f4f4;
+    --mde-link: #3498db;
+    --mde-heading: #2c3e50;
+    --mde-quote-border: #3498db;
+    --mde-quote-bg: #f9f9f9;
+    --mde-scrollbar: #ccc;
+    --mde-scrollbar-hover: #aaa;
+}
+
+/* ================================================================
+ *  Dark Theme Variables
+ * ================================================================ */
+body.rex-theme-dark {
+    --mde-bg: #1e1e2e;
+    --mde-bg-toolbar: #252535;
+    --mde-bg-preview: #1e1e2e;
+    --mde-bg-status: #252535;
+    --mde-border: #3a3a4a;
+    --mde-border-active: #5b9bd5;
+    --mde-text: #cdd6f4;
+    --mde-text-secondary: #7f849c;
+    --mde-text-toolbar: #bac2de;
+    --mde-text-toolbar-hover: #cdd6f4;
+    --mde-icon: #bac2de;
+    --mde-icon-hover: #cdd6f4;
+    --mde-icon-active: #89b4fa;
+    --mde-separator: #45475a;
+    --mde-cursor: #cdd6f4;
+    --mde-selection: rgba(137, 180, 250, 0.2);
+    --mde-gutter: #252535;
+    --mde-code-bg: #313244;
+    --mde-link: #89b4fa;
+    --mde-heading: #89dceb;
+    --mde-quote-border: #89b4fa;
+    --mde-quote-bg: #252535;
+    --mde-scrollbar: #45475a;
+    --mde-scrollbar-hover: #585b70;
+}
+
+/* Auto dark mode (prefers-color-scheme) */
+@media (prefers-color-scheme: dark) {
+    body.rex-has-theme:not(.rex-theme-light) {
+        --mde-bg: #1e1e2e;
+        --mde-bg-toolbar: #252535;
+        --mde-bg-preview: #1e1e2e;
+        --mde-bg-status: #252535;
+        --mde-border: #3a3a4a;
+        --mde-border-active: #5b9bd5;
+        --mde-text: #cdd6f4;
+        --mde-text-secondary: #7f849c;
+        --mde-text-toolbar: #bac2de;
+        --mde-text-toolbar-hover: #cdd6f4;
+        --mde-icon: #bac2de;
+        --mde-icon-hover: #cdd6f4;
+        --mde-icon-active: #89b4fa;
+        --mde-separator: #45475a;
+        --mde-cursor: #cdd6f4;
+        --mde-selection: rgba(137, 180, 250, 0.2);
+        --mde-gutter: #252535;
+        --mde-code-bg: #313244;
+        --mde-link: #89b4fa;
+        --mde-heading: #89dceb;
+        --mde-quote-border: #89b4fa;
+        --mde-quote-bg: #252535;
+        --mde-scrollbar: #45475a;
+        --mde-scrollbar-hover: #585b70;
+    }
+}
+
+/* ================================================================
+ *  Editor Container
+ * ================================================================ */
+.EasyMDEContainer {
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* ================================================================
+ *  Toolbar
+ * ================================================================ */
+.EasyMDEContainer .editor-toolbar {
+    background: var(--mde-bg-toolbar);
+    border-color: var(--mde-border);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    opacity: 1;
+    padding: 6px 10px;
+}
+
+.EasyMDEContainer .editor-toolbar::before,
+.EasyMDEContainer .editor-toolbar::after {
+    display: none; /* Remove default EasyMDE gradient edges */
+}
+
+.EasyMDEContainer .editor-toolbar button {
+    color: var(--mde-icon) !important;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    width: 32px;
+    height: 32px;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.EasyMDEContainer .editor-toolbar button:hover {
+    color: var(--mde-icon-hover) !important;
+    background: var(--mde-bg);
+    border-color: var(--mde-border);
+}
+
+.EasyMDEContainer .editor-toolbar button.active {
+    color: var(--mde-icon-active) !important;
+    background: var(--mde-bg);
+    border-color: var(--mde-border-active);
+}
+
+.EasyMDEContainer .editor-toolbar i.separator {
+    border-left-color: var(--mde-separator);
+    border-right-color: var(--mde-separator);
+}
+
+/* ================================================================
+ *  Editor (CodeMirror)
+ * ================================================================ */
+.EasyMDEContainer .CodeMirror {
+    background: var(--mde-bg);
+    border-color: var(--mde-border);
+    color: var(--mde-text);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 10px;
+}
+
+.EasyMDEContainer .CodeMirror-cursor {
+    border-left-color: var(--mde-cursor);
+}
+
+.EasyMDEContainer .CodeMirror-selected {
+    background: var(--mde-selection) !important;
+}
+
+.EasyMDEContainer .CodeMirror-focused .CodeMirror-selected {
+    background: var(--mde-selection) !important;
+}
+
+/* Gutter */
+.EasyMDEContainer .CodeMirror-gutters {
+    background: var(--mde-gutter);
+    border-right-color: var(--mde-border);
+}
+
+.EasyMDEContainer .CodeMirror-linenumber {
+    color: var(--mde-text-secondary);
+}
+
+/* Scrollbar */
+.EasyMDEContainer .CodeMirror-simplescroll-vertical div,
+.EasyMDEContainer .CodeMirror-simplescroll-horizontal div {
+    background: var(--mde-scrollbar);
+    border-radius: 3px;
+}
+
+.EasyMDEContainer .CodeMirror-simplescroll-vertical div:hover,
+.EasyMDEContainer .CodeMirror-simplescroll-horizontal div:hover {
+    background: var(--mde-scrollbar-hover);
+}
+
+/* ================================================================
+ *  Markdown syntax highlighting in editor
+ * ================================================================ */
+.EasyMDEContainer .cm-header {
+    color: var(--mde-heading);
+    font-weight: 700;
+}
+
+.EasyMDEContainer .cm-header-1 { font-size: 1.6em; }
+.EasyMDEContainer .cm-header-2 { font-size: 1.4em; }
+.EasyMDEContainer .cm-header-3 { font-size: 1.2em; }
+
+.EasyMDEContainer .cm-strong {
+    color: var(--mde-text);
+    font-weight: 700;
+}
+
+.EasyMDEContainer .cm-em {
+    color: var(--mde-text);
+    font-style: italic;
+}
+
+.EasyMDEContainer .cm-url,
+.EasyMDEContainer .cm-link {
+    color: var(--mde-link);
+}
+
+.EasyMDEContainer .cm-comment {
+    color: var(--mde-text-secondary);
+    background: var(--mde-code-bg);
+    border-radius: 2px;
+    padding: 1px 3px;
+    font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+}
+
+.EasyMDEContainer .cm-quote {
+    color: var(--mde-text-secondary);
+    font-style: italic;
+}
+
+.EasyMDEContainer .cm-strikethrough {
+    text-decoration: line-through;
+}
+
+.EasyMDEContainer .cm-tag {
+    color: #e74c3c;
+}
+
+.EasyMDEContainer .cm-attribute {
+    color: #e67e22;
+}
+
+.EasyMDEContainer .cm-string {
+    color: #27ae60;
+}
+
+/* ================================================================
+ *  Preview
+ * ================================================================ */
+.EasyMDEContainer .editor-preview,
+.EasyMDEContainer .editor-preview-side {
+    background: var(--mde-bg-preview);
+    color: var(--mde-text);
+    border-color: var(--mde-border);
+    padding: 16px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.EasyMDEContainer .editor-preview h1,
+.EasyMDEContainer .editor-preview h2,
+.EasyMDEContainer .editor-preview h3,
+.EasyMDEContainer .editor-preview-side h1,
+.EasyMDEContainer .editor-preview-side h2,
+.EasyMDEContainer .editor-preview-side h3 {
+    color: var(--mde-heading);
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}
+
+.EasyMDEContainer .editor-preview a,
+.EasyMDEContainer .editor-preview-side a {
+    color: var(--mde-link);
+}
+
+.EasyMDEContainer .editor-preview blockquote,
+.EasyMDEContainer .editor-preview-side blockquote {
+    border-left: 4px solid var(--mde-quote-border);
+    background: var(--mde-quote-bg);
+    padding: 8px 16px;
+    margin: 16px 0;
+    color: var(--mde-text-secondary);
+}
+
+.EasyMDEContainer .editor-preview code,
+.EasyMDEContainer .editor-preview-side code {
+    background: var(--mde-code-bg);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'SFMono-Regular', 'Consolas', monospace;
+    font-size: 0.9em;
+}
+
+.EasyMDEContainer .editor-preview pre,
+.EasyMDEContainer .editor-preview-side pre {
+    background: var(--mde-code-bg);
+    padding: 12px 16px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.EasyMDEContainer .editor-preview pre code,
+.EasyMDEContainer .editor-preview-side pre code {
+    background: transparent;
+    padding: 0;
+}
+
+.EasyMDEContainer .editor-preview table,
+.EasyMDEContainer .editor-preview-side table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+}
+
+.EasyMDEContainer .editor-preview th,
+.EasyMDEContainer .editor-preview td,
+.EasyMDEContainer .editor-preview-side th,
+.EasyMDEContainer .editor-preview-side td {
+    border: 1px solid var(--mde-border);
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.EasyMDEContainer .editor-preview th,
+.EasyMDEContainer .editor-preview-side th {
+    background: var(--mde-bg-toolbar);
+    font-weight: 600;
+}
+
+.EasyMDEContainer .editor-preview img,
+.EasyMDEContainer .editor-preview-side img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* ================================================================
+ *  Status bar
+ * ================================================================ */
+.EasyMDEContainer .editor-statusbar {
+    background: var(--mde-bg-status);
+    border-color: var(--mde-border);
+    color: var(--mde-text-secondary);
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+/* ================================================================
+ *  Fullscreen mode
+ *
+ *  EasyMDE uses position:fixed on .editor-toolbar.fullscreen and
+ *  .CodeMirror-fullscreen independently. We must style them directly
+ *  and ensure they sit above the REDAXO backend navigation (z-index).
+ * ================================================================ */
+
+/* Container must not clip fixed children */
+.EasyMDEContainer.fullscreen {
+    overflow: visible;
+}
+
+.editor-toolbar.fullscreen {
+    background: var(--mde-bg-toolbar) !important;
+    border-color: var(--mde-border) !important;
+    z-index: 10002 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    opacity: 1 !important;
+    padding: 6px 10px;
+}
+
+.EasyMDEContainer .CodeMirror-fullscreen {
+    background: var(--mde-bg) !important;
+    color: var(--mde-text) !important;
+    z-index: 10001 !important;
+    top: 50px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+}
+
+/* Fullscreen preview (non-side-by-side) */
+.EasyMDEContainer .editor-preview-full {
+    background: var(--mde-bg-preview);
+    color: var(--mde-text);
+    z-index: 10003;
+}
+
+/* Fullscreen + side-by-side: preview also needs fixed positioning */
+.editor-preview-side.editor-preview-active-side {
+    background: var(--mde-bg-preview);
+    color: var(--mde-text);
+}
+
+.CodeMirror-fullscreen ~ .editor-preview-active-side {
+    position: fixed !important;
+    z-index: 10001 !important;
+    top: 50px !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 50% !important;
+}
+
+/* ================================================================
+ *  Side-by-side mode (non-fullscreen, uses EasyMDE flexbox layout)
+ * ================================================================ */
+
+/* The sided--no-fullscreen class uses flex layout natively */
+.EasyMDEContainer.sided--no-fullscreen {
+    border: 1px solid var(--mde-border);
+    border-radius: 4px;
+}
+
+.EasyMDEContainer.sided--no-fullscreen .CodeMirror-sided {
+    border-right: 1px solid var(--mde-border) !important;
+}
+
+.EasyMDEContainer.sided--no-fullscreen .editor-preview-active-side {
+    background: var(--mde-bg-preview);
+    color: var(--mde-text);
+    border: none;
+    overflow-y: auto;
+}
+
+.EasyMDEContainer.sided--no-fullscreen .editor-statusbar {
+    border-top: 1px solid var(--mde-border);
+}
+
+/* ================================================================
+ *  Upload progress overlay
+ * ================================================================ */
+.EasyMDEContainer .editor-drop-zone {
+    background: var(--mde-bg);
+    border: 2px dashed var(--mde-border-active);
+    opacity: 0.95;
+}
+
+/* ================================================================
+ *  Integration fixes for REDAXO backend
+ * ================================================================ */
+
+/* Prevent conflict with Bootstrap styles */
+.EasyMDEContainer .editor-toolbar button::after {
+    display: none;
+}
+
+/* Fix for REDAXO form panels */
+.rex-page-section .EasyMDEContainer {
+    margin-bottom: 0;
+}
+
+/* Ensure proper display in MBlock items */
+.mblock-element .EasyMDEContainer {
+    margin-bottom: 10px;
+}
+
+/* MForm Repeater item styling */
+.repeater-group .EasyMDEContainer {
+    margin-bottom: 10px;
+}
+
+/* Hidden textarea – still accessible for form submit */
+textarea.markdowneditor-editor {
+    /* EasyMDE hides the textarea automatically */
+}

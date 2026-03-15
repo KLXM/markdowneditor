@@ -1,0 +1,107 @@
+/**
+ * markdowneditor-backend.css – Additional styles for the addon's backend pages.
+ */
+
+/* ================================================================
+ *  Profile list
+ * ================================================================ */
+.markdowneditor-profile-list .btn-toolbar {
+    margin-bottom: 15px;
+}
+
+.markdowneditor-profile-list .list-group-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.markdowneditor-profile-list .profile-name {
+    font-weight: 600;
+    font-family: 'SFMono-Regular', 'Consolas', monospace;
+    font-size: 14px;
+}
+
+.markdowneditor-profile-list .profile-description {
+    color: #888;
+    font-size: 13px;
+    margin-left: 12px;
+}
+
+.markdowneditor-profile-list .profile-actions .btn {
+    margin-left: 4px;
+}
+
+/* ================================================================
+ *  Toolbar builder
+ * ================================================================ */
+.markdowneditor-toolbar-builder {
+    border: 1px solid var(--mde-border, #ddd);
+    border-radius: 4px;
+    padding: 12px;
+    background: var(--mde-bg-toolbar, #f5f5f5);
+    margin-bottom: 15px;
+}
+
+.markdowneditor-toolbar-builder .available-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: var(--mde-bg, #fff);
+    border: 1px dashed var(--mde-border, #ddd);
+    border-radius: 4px;
+    min-height: 40px;
+}
+
+.markdowneditor-toolbar-builder .toolbar-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border: 1px solid var(--mde-border, #ddd);
+    border-radius: 3px;
+    background: var(--mde-bg, #fff);
+    cursor: move;
+    font-size: 13px;
+    user-select: none;
+    transition: border-color 0.15s;
+}
+
+.markdowneditor-toolbar-builder .toolbar-item:hover {
+    border-color: var(--mde-border-active, #3498db);
+}
+
+.markdowneditor-toolbar-builder .toolbar-item i {
+    margin-right: 6px;
+}
+
+/* ================================================================
+ *  Settings page
+ * ================================================================ */
+.markdowneditor-settings .rex-form-group {
+    margin-bottom: 20px;
+}
+
+.markdowneditor-settings .form-control-static code {
+    background: var(--mde-code-bg, #f4f4f4);
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* ================================================================
+ *  Live preview on profile page
+ * ================================================================ */
+.markdowneditor-preview-container {
+    margin-top: 20px;
+    border: 1px solid var(--mde-border, #ddd);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.markdowneditor-preview-container h4 {
+    background: var(--mde-bg-toolbar, #f5f5f5);
+    padding: 8px 12px;
+    margin: 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--mde-border, #ddd);
+}

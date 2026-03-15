@@ -1,0 +1,13 @@
+{
+  "name": "markdowneditor",
+  "version": "1.0.0",
+  "description": "REDAXO Markdown Editor AddOn – vendor management & build workflow",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/vendor-copy.js",
+    "update-vendor": "npm update easymde && npm run build"
+  },
+  "dependencies": {
+    "easymde": "^2.18.0"
+  }
+}
