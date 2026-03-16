@@ -3,6 +3,7 @@ markdowneditor_profiles = Profiles
 markdowneditor_settings = Settings
 markdowneditor_help = Help
 
+markdowneditor_profile = Profile
 markdowneditor_profile_name = Profile name
 markdowneditor_profile_name_notice = Unique name (lowercase letters, numbers, underscores only)
 markdowneditor_profile_name_required = The profile name must not be empty.

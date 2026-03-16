@@ -61,12 +61,7 @@ if ($func === 'clone' && $id > 0) {
 
 // ---------- Edit / Add form ----------
 if ($func === 'edit' || $func === 'add') {
-    $form = rex_form::factory(rex::getTable('markdowneditor_profiles'), $addon->i18n('markdowneditor_profile'), 'id = ' . $id, 'post', false);
-    $form->addParam('func', $func);
-
-    if ($func === 'add') {
-        $form->setEditMode(false);
-    }
+    $form = rex_form::factory(rex::getTable('markdowneditor_profiles'), $addon->i18n('markdowneditor_profile'), 'id=' . $id, 'post');
 
     // Name
     $field = $form->addTextField('name');
