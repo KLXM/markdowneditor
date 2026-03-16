@@ -409,9 +409,30 @@
 
     /* ================================================================
      *  Init / Re-init all editors in a container
+     *
+     *  MBlock triggers rex:ready on cloned items. The cloned DOM contains
+     *  the full .EasyMDEContainer (toolbar + CodeMirror + hidden textarea).
+     *  We must clean up stale containers before creating fresh editors.
      * ================================================================ */
     function initEditors(container) {
         var $container = $(container || document);
+
+        // 1. Clean up orphaned EasyMDE containers (left from MBlock/Repeater cloning).
+        //    When MBlock clones a block, the full .EasyMDEContainer is copied.
+        //    We extract the textarea, remove the stale wrapper, and let EasyMDE
+        //    initialise cleanly below.
+        $container.find('.EasyMDEContainer').each(function () {
+            var $wrapper = $(this);
+            var $textarea = $wrapper.find('textarea.markdowneditor-editor');
+            if ($textarea.length && !instances.has($textarea[0])) {
+                // Orphaned clone – rescue textarea and destroy wrapper
+                $wrapper.before($textarea);
+                $textarea.show().css('display', '');
+                $wrapper.remove();
+            }
+        });
+
+        // 2. Initialise editors
         $container.find('textarea.markdowneditor-editor').each(function () {
             // Skip elements inside MBlock templates
             if ($(this).closest('.mblock-template-holder').length > 0) {
@@ -425,86 +446,12 @@
      *  MBlock / MForm Repeater compatibility
      * ================================================================ */
 
-    // Pre-init: destroy editors before clone/move (avoids duplicate DOM)
+    // Prepare editors for DOM move operations (destroy before clone/drag)
     function prepareForMove(container) {
         $(container).find('textarea.markdowneditor-editor').each(function () {
             destroyEditor(this);
         });
     }
-
-    /**
-     * Clean up cloned EasyMDE DOM left over from MBlock/Repeater clone operations.
-     * When a block is cloned, the entire .EasyMDEContainer (with CodeMirror)
-     * is duplicated. We need to unwrap the textarea and remove the stale container
-     * before re-initialising a fresh editor.
-     */
-    function cleanupClonedEditors(container) {
-        $(container).find('.EasyMDEContainer').each(function () {
-            var $wrapper = $(this);
-            var $textarea = $wrapper.find('textarea.markdowneditor-editor');
-            if ($textarea.length) {
-                $wrapper.before($textarea);
-                $textarea.show().css('display', '');
-            }
-            $wrapper.remove();
-        });
-    }
-
-    // MBlock clone event – re-init editors in new block
-    $(document).on('mblock:added', function (e, data) {
-        if (data && data.item) {
-            cleanupClonedEditors(data.item);
-            initEditors(data.item);
-        }
-    });
-
-    // MBlock remove event – cleanup
-    $(document).on('mblock:removed', function (e, data) {
-        if (data && data.item) {
-            $(data.item).find('textarea.markdowneditor-editor').each(function () {
-                destroyEditor(this);
-            });
-        }
-    });
-
-    // MBlock before-sort – destroy editors before drag
-    $(document).on('mblock:before-sort', function (e, data) {
-        if (data && data.container) {
-            prepareForMove(data.container);
-        }
-    });
-
-    // MBlock after-sort – re-init after drag
-    $(document).on('mblock:after-sort', function (e, data) {
-        if (data && data.container) {
-            initEditors(data.container);
-        }
-    });
-
-    // MForm Repeater: re-init on add/move
-    $(document).on('rex:mform-repeater:added', function (e, item) {
-        if (item) {
-            // Short delay for DOM to settle
-            setTimeout(function () {
-                cleanupClonedEditors(item);
-                initEditors(item);
-            }, 50);
-        }
-    });
-
-    $(document).on('rex:mform-repeater:before-move', function (e, item) {
-        if (item) {
-            prepareForMove(item);
-        }
-    });
-
-    $(document).on('rex:mform-repeater:after-move', function (e, item) {
-        if (item) {
-            setTimeout(function () {
-                initEditors(item);
-            }, 50);
-        }
-    });
 
     /* ================================================================
      *  REDAXO rex:ready – primary initialisation point
