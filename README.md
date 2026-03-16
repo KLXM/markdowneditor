@@ -13,14 +13,15 @@ Kann als Drop-in-Ersatz für das **markitup**-Addon verwendet werden (kompatible
 - **Plugin-System** – andere Addons können Toolbar-Buttons und Verarbeitung erweitern ✅
 - **Medienpool-Integration** – Bilder direkt aus dem REDAXO-Medienpool einfügen ✅
 - **Struktur-Links** – Artikel aus der REDAXO-Struktur verlinken ✅
-- **YForm-Datensätze** – YForm-Datensätze als Links einfügen ✅
+- **YForm-Datensätze** – YForm-Datensätze als Links einfügen (nutzt YForm's eigene UI) ✅
+- **Tabellen-Generator** – Visueller Grid-Picker zum Einfügen von Markdown-Tabellen ✅
 - **Drag & Drop Upload** – Bilder per Drag & Drop in den Medienpool hochladen ✅
 - **Profilsystem** – Verschiedene Toolbar-Konfigurationen für unterschiedliche Einsatzzwecke ✅
 - **Dark Mode** – Vollständige Unterstützung für REDAXO Light, Dark und Auto Theme ✅
 - **MBlock-kompatibel** – Funktioniert in MBlock-Formularen ✅
 - **MForm Repeater-kompatibel** – Funktioniert in MForm-Repeater-Feldern ✅
-- **Live-Vorschau** – Side-by-Side und Fullscreen Preview  ✅
-- **Tastaturkürzel** – `Ctrl+Shift+M` für Medienpool, `Ctrl+Shift+L` für Linkmap  ✅
+- **Live-Vorschau** – Side-by-Side und Fullscreen Preview ✅
+- **Tastaturkürzel** – `Ctrl+Shift+M` für Medienpool, `Ctrl+Shift+L` für Linkmap ✅
 
 ## Installation
 
@@ -171,10 +172,13 @@ Im Backend unter **MarkdownEditor → Profile** können neue Profile angelegt we
 ### Verfügbare Toolbar-Buttons
 
 **Standard EasyMDE:**
-`bold`, `italic`, `strikethrough`, `heading`, `heading-smaller`, `heading-bigger`, `code`, `quote`, `unordered-list`, `ordered-list`, `clean-block`, `link`, `image`, `table`, `horizontal-rule`, `preview`, `side-by-side`, `fullscreen`, `undo`, `redo`, `guide`
+`bold`, `italic`, `strikethrough`, `heading`, `heading-smaller`, `heading-bigger`, `code`, `quote`, `unordered-list`, `ordered-list`, `clean-block`, `link`, `image`, `horizontal-rule`, `preview`, `side-by-side`, `fullscreen`, `undo`, `redo`, `guide`
 
 **REDAXO-spezifisch:**
 `rex-media`, `rex-link`, `rex-yform-link`
+
+**Erweitert:**
+`table` – Visueller Grid-Picker (Zeilen/Spalten per Mausauswahl)
 
 **Separator:** `|`
 
@@ -311,6 +315,17 @@ MarkdownEditor.on('plugin-action', function (event, buttonName, editor) {
         cm.replaceSelection('![Galerie](gallery://1)');
     }
 });
+```
+
+## Tabellen-Generator
+
+Der `table`-Button öffnet ein visuelles Grid-Overlay (10 × 8 Zellen). Per Hover wird die gewünschte Tabellengröße angezeigt, per Klick wird die Markdown-Tabelle eingefügt:
+
+```markdown
+| Spalte 1 | Spalte 2 | Spalte 3 |
+| --- | --- | --- |
+|  |  |  |
+|  |  |  |
 ```
 
 ## JavaScript API
