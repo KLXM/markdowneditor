@@ -413,31 +413,37 @@
      *  MBlock triggers rex:ready on cloned items. The cloned DOM contains
      *  the full .EasyMDEContainer (toolbar + CodeMirror + hidden textarea).
      *  We must clean up stale containers before creating fresh editors.
+     *
+     *  IMPORTANT: EasyMDE places the textarea as a SIBLING before the
+     *  .EasyMDEContainer, not inside it.  After MBlock clones a block
+     *  the DOM looks like:
+     *      <textarea style="display:none">…</textarea>   ← cloned
+     *      <div class="EasyMDEContainer">…</div>         ← cloned (stale)
+     *  We must remove the stale container and restore the textarea.
      * ================================================================ */
     function initEditors(container) {
         var $container = $(container || document);
 
-        // 1. Clean up orphaned EasyMDE containers (left from MBlock/Repeater cloning).
-        //    When MBlock clones a block, the full .EasyMDEContainer is copied.
-        //    We extract the textarea, remove the stale wrapper, and let EasyMDE
-        //    initialise cleanly below.
-        $container.find('.EasyMDEContainer').each(function () {
-            var $wrapper = $(this);
-            var $textarea = $wrapper.find('textarea.markdowneditor-editor');
-            if ($textarea.length && !instances.has($textarea[0])) {
-                // Orphaned clone – rescue textarea and destroy wrapper
-                $wrapper.before($textarea);
-                $textarea.show().css('display', '');
-                $wrapper.remove();
-            }
-        });
-
-        // 2. Initialise editors
+        // Initialise editors – clean up orphans per textarea
         $container.find('textarea.markdowneditor-editor').each(function () {
             // Skip elements inside MBlock templates
             if ($(this).closest('.mblock-template-holder').length > 0) {
                 return;
             }
+
+            // Already managed – skip
+            if (instances.has(this)) {
+                return;
+            }
+
+            // Orphaned clone: remove stale EasyMDE sibling containers
+            // that were copied by MBlock but have no live instance.
+            $(this).siblings('.EasyMDEContainer').remove();
+            $(this).show().css('display', '');
+
+            createEditor(this);
+        });
+    }
             createEditor(this);
         });
     }
