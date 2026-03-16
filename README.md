@@ -110,6 +110,17 @@ echo MBlock::show('1', $mform->show());
 
 ### Mit MForm Repeater
 
+```php
+$mform = new MForm();
+$mform->addFieldset('Inhalt');
+$mform->addTextAreaField('text', [
+    'class' => 'markdowneditor-editor',
+    'data-markdowneditor-profile' => 'default',
+    'label' => 'Text'
+]);
+echo $mform->show();
+```
+
 Der Editor wird beim Hinzufügen und Verschieben von Repeater-Elementen automatisch neu initialisiert.
 
 ## REDAXO-Link-Formate (markitup-kompatibel)
