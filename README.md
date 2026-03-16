@@ -100,8 +100,11 @@ echo MarkdownOutput::parseOutput('markdown', 'REX_VALUE[id=1 output="html"]');
 ### Mit MBlock
 
 ```php
+use FriendsOfRedaxo\MForm;
+use FriendsOfRedaxo\MBlock\MBlock;
+
 $mform = new MForm();
-$mform->addTextAreaField('0.0.text', [
+$mform->addTextAreaField('1.0.text', [
     'class' => 'markdowneditor-editor',
     'data-markdowneditor-profile' => 'minimal'
 ]);
