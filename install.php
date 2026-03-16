@@ -105,7 +105,7 @@ if ($count === 0) {
     $sql->setValue('min_height', 300);
     $sql->setValue('max_height', 800);
     $sql->setValue('status_bar', 1);
-    $sql->setValue('spell_checker', 1);
+    $sql->setValue('spell_checker', 0);
     $sql->setValue('autosave', 1);
     $sql->setValue('upload_enabled', 1);
     $sql->setValue('media_category', 0);

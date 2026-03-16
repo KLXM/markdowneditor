@@ -16,10 +16,6 @@ page:
         help:
             title: 'translate:markdowneditor_help'
             subPath: README.md
-        yform_select:
-            title: 'YForm Select'
-            hidden: true
-            perm: admin
 
 requires:
     redaxo: '^5.13'

@@ -13,7 +13,7 @@ Kann als Drop-in-Ersatz für das **markitup**-Addon verwendet werden (kompatible
 - **Plugin-System** – andere Addons können Toolbar-Buttons und Verarbeitung erweitern ✅
 - **Medienpool-Integration** – Bilder direkt aus dem REDAXO-Medienpool einfügen ✅
 - **Struktur-Links** – Artikel aus der REDAXO-Struktur verlinken ✅
-- **YForm-Datensätze** – YForm-Datensätze als Links einfügen ❓
+- **YForm-Datensätze** – YForm-Datensätze als Links einfügen ✅
 - **Drag & Drop Upload** – Bilder per Drag & Drop in den Medienpool hochladen ✅
 - **Profilsystem** – Verschiedene Toolbar-Konfigurationen für unterschiedliche Einsatzzwecke ✅
 - **Dark Mode** – Vollständige Unterstützung für REDAXO Light, Dark und Auto Theme ✅

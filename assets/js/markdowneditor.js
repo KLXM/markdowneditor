@@ -99,9 +99,9 @@
     /**
      * Open YForm dataset selector popup.
      *
-     * Reads configured yformTables from the profile and opens the
-     * markdowneditor/yform_select popup page with those tables.
-     * The popup triggers 'markdowneditor:selectYFormLink' on close.
+     * Uses YForm's built-in data management page with the rex_yform_manager_opener
+     * pattern (same approach as TinyMCE/markitup). The popup renders YForm's own
+     * UI and triggers 'rex:YForm_selectData' when a dataset is selected.
      */
     function rexYFormLinkAction(editor) {
         activeEditor = editor;
@@ -113,27 +113,89 @@
             return;
         }
 
-        var tablesParam = encodeURIComponent(JSON.stringify(yformTables));
-        var yformUrl = 'index.php?page=markdowneditor/yform_select&tables=' + tablesParam;
+        function openYFormTable(tableConfig) {
+            var table = tableConfig.table;
+            var field = tableConfig.label || 'name';
+            var yformUrl = 'index.php?page=yform/manager/data_edit&table_name=' + encodeURIComponent(table)
+                + '&rex_yform_manager_opener[id]=1'
+                + '&rex_yform_manager_opener[field]=' + encodeURIComponent(field)
+                + '&rex_yform_manager_opener[multiple]=0';
 
-        // If only one table, pre-select it
+            var yformWindow = newWindow('mdeyform', yformUrl, 1200, Math.max(screen.height * 0.75, 800), ',status=yes,resizable=yes');
+            if (yformWindow) {
+                $(yformWindow).on('rex:YForm_selectData', function (event, id, value) {
+                    event.preventDefault();
+                    yformWindow.close();
+                    if (!activeEditor) return;
+                    var cm = activeEditor.codemirror;
+                    // Clean value: remove [id=X] suffix added by YForm
+                    var label = value.replace(/\s*\[id=\d+\]\s*$/, '');
+                    var selection = cm.getSelection() || label || (table + ' #' + id);
+                    cm.replaceSelection('[' + selection + '](yform:' + table + '/' + id + ')');
+                    activeEditor = null;
+                    cm.focus();
+                });
+            }
+        }
+
         if (yformTables.length === 1) {
-            yformUrl += '&table=' + encodeURIComponent(yformTables[0].table);
+            openYFormTable(yformTables[0]);
+        } else {
+            // Multiple tables: show a simple selection dropdown
+            showYFormTableSelector(editor, yformTables, openYFormTable);
+        }
+    }
+
+    /**
+     * Show a dropdown to select which YForm table to browse.
+     */
+    function showYFormTableSelector(editor, tables, callback) {
+        // Remove existing dropdown
+        $('.mde-yform-table-selector').remove();
+
+        var toolbarButton = editor.toolbarElements['rex-yform-link'];
+        if (!toolbarButton) return;
+
+        var dropdown = $('<div class="mde-yform-table-selector"></div>');
+        dropdown.css({
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            zIndex: 10000,
+            background: '#fff',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            padding: '4px 0',
+            minWidth: '180px'
+        });
+
+        for (var i = 0; i < tables.length; i++) {
+            (function(tableConfig) {
+                var label = tableConfig.display || tableConfig.table;
+                var item = $('<a href="#" style="display:block;padding:6px 12px;color:#333;text-decoration:none;"></a>');
+                item.text(label);
+                item.on('mouseenter', function() { $(this).css('background', '#f0f0f0'); });
+                item.on('mouseleave', function() { $(this).css('background', 'transparent'); });
+                item.on('click', function(e) {
+                    e.preventDefault();
+                    dropdown.remove();
+                    callback(tableConfig);
+                });
+                dropdown.append(item);
+            })(tables[i]);
         }
 
-        var yformWindow = window.open(yformUrl, 'REXYFormSelect', 'width=900,height=700,scrollbars=yes,resizable=yes');
-        if (yformWindow) {
-            yformWindow.focus();
-            // Listen for the selection callback
-            $(yformWindow).on('markdowneditor:selectYFormLink', function (event, table, id, label) {
-                if (!activeEditor) return;
-                var cm = activeEditor.codemirror;
-                var selection = cm.getSelection() || label || (table + ' #' + id);
-                cm.replaceSelection('[' + selection + '](yform:' + table + '/' + id + ')');
-                activeEditor = null;
-                cm.focus();
+        $(toolbarButton).css('position', 'relative').append(dropdown);
+
+        // Close on outside click
+        setTimeout(function() {
+            $(document).one('click', function(e) {
+                if (!$(e.target).closest('.mde-yform-table-selector').length) {
+                    dropdown.remove();
+                }
             });
-        }
+        }, 0);
     }
 
     /* ================================================================
