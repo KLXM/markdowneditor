@@ -444,9 +444,6 @@
             createEditor(this);
         });
     }
-            createEditor(this);
-        });
-    }
 
     /* ================================================================
      *  MBlock / MForm Repeater compatibility
