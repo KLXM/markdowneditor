@@ -6,7 +6,7 @@ Kann als Drop-in-Ersatz für das **markitup**-Addon verwendet werden (kompatible
 ![REDAXO](https://img.shields.io/badge/REDAXO-%3E%3D5.13-red)
 ![PHP](https://img.shields.io/badge/PHP-%3E%3D8.1-blue)
 
-## Features / realisiert ✅ und noch nicht getestet ❓ 
+## Features
 
 - **EasyMDE** als Basis – bewährt, leichtgewichtig, CodeMirror-basiert
 - **markitup-kompatibel** – gleiche Link-Formate, kann markitup direkt ersetzen ✅
