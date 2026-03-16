@@ -432,9 +432,28 @@
         });
     }
 
+    /**
+     * Clean up cloned EasyMDE DOM left over from MBlock/Repeater clone operations.
+     * When a block is cloned, the entire .EasyMDEContainer (with CodeMirror)
+     * is duplicated. We need to unwrap the textarea and remove the stale container
+     * before re-initialising a fresh editor.
+     */
+    function cleanupClonedEditors(container) {
+        $(container).find('.EasyMDEContainer').each(function () {
+            var $wrapper = $(this);
+            var $textarea = $wrapper.find('textarea.markdowneditor-editor');
+            if ($textarea.length) {
+                $wrapper.before($textarea);
+                $textarea.show().css('display', '');
+            }
+            $wrapper.remove();
+        });
+    }
+
     // MBlock clone event – re-init editors in new block
     $(document).on('mblock:added', function (e, data) {
         if (data && data.item) {
+            cleanupClonedEditors(data.item);
             initEditors(data.item);
         }
     });
@@ -467,6 +486,7 @@
         if (item) {
             // Short delay for DOM to settle
             setTimeout(function () {
+                cleanupClonedEditors(item);
                 initEditors(item);
             }, 50);
         }
