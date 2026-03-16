@@ -472,3 +472,52 @@ body.rex-theme-dark {
 textarea.markdowneditor-editor {
     /* EasyMDE hides the textarea automatically */
 }
+
+/* ================================================================
+ *  Table Grid Picker
+ * ================================================================ */
+.mde-table-grid-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10000;
+    background: var(--mde-bg, #fff);
+    border: 1px solid var(--mde-border, #ccc);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    cursor: default;
+}
+
+.mde-table-grid-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mde-text-secondary, #666);
+    text-align: center;
+    margin-bottom: 6px;
+    min-width: 160px;
+}
+
+.mde-table-grid-container {
+    display: grid;
+    gap: 2px;
+}
+
+.mde-table-grid-cell {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--mde-border, #ddd);
+    border-radius: 2px;
+    background: var(--mde-bg, #fafafa);
+    cursor: pointer;
+    transition: background-color 0.1s, border-color 0.1s;
+}
+
+.mde-table-grid-cell.active {
+    background: #4285f4;
+    border-color: #3367d6;
+}
+
+.mde-table-grid-cell:hover {
+    border-color: #4285f4;
+}

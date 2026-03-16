@@ -199,6 +199,133 @@
     }
 
     /* ================================================================
+     *  Table Grid Picker – visual row/column selector
+     * ================================================================ */
+    var tableGridEl = null;
+
+    function tableGridAction(editor) {
+        // Toggle: close if already open
+        if (tableGridEl) {
+            closeTableGrid();
+            return;
+        }
+
+        var maxCols = 10, maxRows = 8;
+        var currentCols = 0, currentRows = 0;
+
+        var grid = document.createElement('div');
+        grid.className = 'mde-table-grid-dropdown';
+
+        var label = document.createElement('div');
+        label.className = 'mde-table-grid-label';
+        label.textContent = 'Tabelle einfügen';
+        grid.appendChild(label);
+
+        var container = document.createElement('div');
+        container.className = 'mde-table-grid-container';
+
+        // Create cells
+        for (var r = 0; r < maxRows; r++) {
+            for (var c = 0; c < maxCols; c++) {
+                var cell = document.createElement('div');
+                cell.className = 'mde-table-grid-cell';
+                cell.setAttribute('data-row', r + 1);
+                cell.setAttribute('data-col', c + 1);
+                container.appendChild(cell);
+            }
+        }
+
+        grid.appendChild(container);
+        container.style.gridTemplateColumns = 'repeat(' + maxCols + ', 1fr)';
+
+        // Hover: highlight cells
+        container.addEventListener('mouseover', function (e) {
+            var cell = e.target.closest('.mde-table-grid-cell');
+            if (!cell) return;
+            currentRows = parseInt(cell.getAttribute('data-row'), 10);
+            currentCols = parseInt(cell.getAttribute('data-col'), 10);
+            label.textContent = currentCols + ' × ' + currentRows;
+            var cells = container.querySelectorAll('.mde-table-grid-cell');
+            for (var i = 0; i < cells.length; i++) {
+                var cr = parseInt(cells[i].getAttribute('data-row'), 10);
+                var cc = parseInt(cells[i].getAttribute('data-col'), 10);
+                if (cr <= currentRows && cc <= currentCols) {
+                    cells[i].classList.add('active');
+                } else {
+                    cells[i].classList.remove('active');
+                }
+            }
+        });
+
+        // Click: insert table
+        container.addEventListener('click', function (e) {
+            var cell = e.target.closest('.mde-table-grid-cell');
+            if (!cell) return;
+            e.preventDefault();
+            e.stopPropagation();
+            var rows = parseInt(cell.getAttribute('data-row'), 10);
+            var cols = parseInt(cell.getAttribute('data-col'), 10);
+            insertMarkdownTable(editor, cols, rows);
+            closeTableGrid();
+        });
+
+        tableGridEl = grid;
+
+        // Position near toolbar button
+        var toolbarButton = editor.toolbarElements['table'];
+        if (toolbarButton) {
+            toolbarButton.style.position = 'relative';
+            toolbarButton.appendChild(grid);
+        }
+
+        setTimeout(function () {
+            document.addEventListener('click', onTableGridDocClick);
+        }, 0);
+    }
+
+    function closeTableGrid() {
+        if (tableGridEl && tableGridEl.parentNode) {
+            tableGridEl.parentNode.removeChild(tableGridEl);
+        }
+        tableGridEl = null;
+        document.removeEventListener('click', onTableGridDocClick);
+    }
+
+    function onTableGridDocClick(e) {
+        if (tableGridEl && !tableGridEl.contains(e.target)) {
+            closeTableGrid();
+        }
+    }
+
+    function insertMarkdownTable(editor, cols, rows) {
+        var cm = editor.codemirror;
+        var lines = [];
+
+        // Header row
+        var header = '|';
+        var separator = '|';
+        for (var c = 0; c < cols; c++) {
+            header += ' Spalte ' + (c + 1) + ' |';
+            separator += ' --- |';
+        }
+        lines.push(header);
+        lines.push(separator);
+
+        // Data rows
+        for (var r = 0; r < rows; r++) {
+            var row = '|';
+            for (var c2 = 0; c2 < cols; c2++) {
+                row += '  |';
+            }
+            lines.push(row);
+        }
+
+        var tableText = '\n' + lines.join('\n') + '\n';
+        cm.replaceSelection(tableText);
+        cm.focus();
+    }
+
+    /* ================================================================
      *  Plugin button registry
      * ================================================================ */
     function getPluginButtons() {
@@ -258,6 +385,15 @@
                 case 'checklist':
                     // Map to EasyMDE's checklist name
                     toolbar.push('unordered-list');
+                    break;
+
+                case 'table':
+                    toolbar.push({
+                        name: 'table',
+                        action: tableGridAction,
+                        className: 'fa fa-table',
+                        title: 'Tabelle einfügen'
+                    });
                     break;
 
                 default:
