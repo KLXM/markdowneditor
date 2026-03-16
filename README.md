@@ -17,7 +17,7 @@ Kann als Drop-in-Ersatz für das **markitup**-Addon verwendet werden (kompatible
 - **Drag & Drop Upload** – Bilder per Drag & Drop in den Medienpool hochladen ✅
 - **Profilsystem** – Verschiedene Toolbar-Konfigurationen für unterschiedliche Einsatzzwecke ✅
 - **Dark Mode** – Vollständige Unterstützung für REDAXO Light, Dark und Auto Theme ✅
-- **MBlock-kompatibel** – Funktioniert in MBlock-Formularen ❓
+- **MBlock-kompatibel** – Funktioniert in MBlock-Formularen ✅
 - **MForm Repeater-kompatibel** – Funktioniert in MForm-Repeater-Feldern ❓
 - **Live-Vorschau** – Side-by-Side und Fullscreen Preview  ✅
 - **Tastaturkürzel** – `Ctrl+Shift+M` für Medienpool, `Ctrl+Shift+L` für Linkmap  ✅
@@ -111,13 +111,20 @@ echo MBlock::show('1', $mform->show());
 ### Mit MForm Repeater
 
 ```php
-$mform = new MForm();
-$mform->addFieldset('Inhalt');
-$mform->addTextAreaField('text', [
-    'class' => 'markdowneditor-editor',
-    'data-markdowneditor-profile' => 'default',
-    'label' => 'Text'
-]);
+use FriendsOfRedaxo\MForm;
+
+$formtorepeat = MForm::factory();
+$formtorepeat->addFieldsetArea('Inhalt', MForm::factory()
+    ->addTextAreaField('text', [
+        'class' => 'markdowneditor-editor',
+        'data-markdowneditor-profile' => 'default',
+        'label' => 'Text'
+    ])
+);
+
+$mform = MForm::factory();
+$mform->addRepeaterElement(1, $formtorepeat);
+
 echo $mform->show();
 ```
 
