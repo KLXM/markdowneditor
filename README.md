@@ -133,6 +133,14 @@ echo $mform->show();
 
 Der Editor wird beim Hinzufügen und Verschieben von Repeater-Elementen automatisch neu initialisiert.
 
+### In YForm
+
+Im YForm Table Manager bei einem `textarea`-Feld folgendes JSON in das Attribut-Feld eintragen:
+
+```json
+{"class":"markdowneditor-editor","data-markdowneditor-profile":"default"}
+```
+
 ## REDAXO-Link-Formate (markitup-kompatibel)
 
 Der Editor verwendet die gleichen Link-Formate wie markitup:
