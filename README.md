@@ -18,7 +18,7 @@ Kann als Drop-in-Ersatz für das **markitup**-Addon verwendet werden (kompatible
 - **Profilsystem** – Verschiedene Toolbar-Konfigurationen für unterschiedliche Einsatzzwecke ✅
 - **Dark Mode** – Vollständige Unterstützung für REDAXO Light, Dark und Auto Theme ✅
 - **MBlock-kompatibel** – Funktioniert in MBlock-Formularen ✅
-- **MForm Repeater-kompatibel** – Funktioniert in MForm-Repeater-Feldern ❓
+- **MForm Repeater-kompatibel** – Funktioniert in MForm-Repeater-Feldern ✅
 - **Live-Vorschau** – Side-by-Side und Fullscreen Preview  ✅
 - **Tastaturkürzel** – `Ctrl+Shift+M` für Medienpool, `Ctrl+Shift+L` für Linkmap  ✅
 
