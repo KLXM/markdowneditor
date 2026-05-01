@@ -7,8 +7,10 @@
  * @psalm-scope-this rex_addon
  */
 
+$profileTable = rex::getTable('markdowneditor_profiles');
+
 // ---------- Profile table ----------
-rex_sql_table::get(rex::getTable('markdowneditor_profiles'))
+rex_sql_table::get($profileTable)
     ->ensurePrimaryIdColumn()
     ->ensureColumn(new rex_sql_column('name', 'varchar(40)', false))
     ->ensureColumn(new rex_sql_column('description', 'varchar(255)', true))
@@ -32,15 +34,13 @@ rex_sql_table::get(rex::getTable('markdowneditor_profiles'))
 
 // ---------- Insert default profiles if table is empty ----------
 $sql = rex_sql::factory();
-$sql->setQuery('SELECT COUNT(*) as cnt FROM ' . rex::getTable('markdowneditor_profiles'));
-$count = (int) $sql->getValue('cnt');
+$sql->setQuery('SELECT id FROM ' . $profileTable . ' LIMIT 1' );
 
-if ($count === 0) {
+if ($sql->getRows() === 0) {
     $now = date('Y-m-d H:i:s');
 
     // --- Profile: default ---
-    $sql = rex_sql::factory();
-    $sql->setTable(rex::getTable('markdowneditor_profiles'));
+    $sql->setTable($profileTable);
     $sql->setValue('name', 'default');
     $sql->setValue('description', 'Standard-Profil mit allen Funktionen');
     $sql->setValue('toolbar', json_encode([
@@ -65,8 +65,7 @@ if ($count === 0) {
     $sql->insert();
 
     // --- Profile: minimal ---
-    $sql = rex_sql::factory();
-    $sql->setTable(rex::getTable('markdowneditor_profiles'));
+    $sql->setTable($profileTable);
     $sql->setValue('name', 'minimal');
     $sql->setValue('description', 'Minimales Profil für einfache Texte');
     $sql->setValue('toolbar', json_encode([
@@ -90,8 +89,7 @@ if ($count === 0) {
     $sql->insert();
 
     // --- Profile: full ---
-    $sql = rex_sql::factory();
-    $sql->setTable(rex::getTable('markdowneditor_profiles'));
+    $sql->setTable($profileTable);
     $sql->setValue('name', 'full');
     $sql->setValue('description', 'Volles Profil mit allen Optionen');
     $sql->setValue('toolbar', json_encode([
