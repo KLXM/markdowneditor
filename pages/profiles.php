@@ -11,6 +11,12 @@ $func = rex_request('func', 'string', 'list');
 $id = rex_request('id', 'int', 0);
 $message = '';
 
+// ---------- Import (AJAX) ----------
+if ($func === 'import') {
+    // Delegated to API endpoint – should not reach here directly
+    $func = 'list';
+}
+
 // ---------- Delete ----------
 if ($func === 'delete' && $id > 0) {
     $csrfToken = rex_csrf_token::factory('markdowneditor_profiles');
